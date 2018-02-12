@@ -1,0 +1,11 @@
+commit f8f9b4236244c035bc4e4eda9e742485a988a327 (HEAD -> master)
+Author: JanaJavno <perednia.jana@gmail.com>
+Date:   Mon Feb 12 20:07:18 2018 +0300
+
+    add status.txt
+
+commit 6beeb28b16a3b420d84c9a9e02e145b624358cb5
+Author: JanaJavno <perednia.jana@gmail.com>
+Date:   Mon Feb 12 20:04:55 2018 +0300
+
+    add .gitignore
