@@ -1,0 +1,186 @@
+
+    /*background-color: #fdfcff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'
+    width='36' height='72' viewBox='0 0 36 72'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23f68610'
+    fill-opacity='0.46'%3E%3Cpath d='M2 6h12L8 18 2 6zm18 36h12l-6 12-6-12z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");*/
+body {
+    background:
+            radial-gradient(black 3px, transparent 4px),
+            radial-gradient(black 3px, transparent 4px),
+            linear-gradient(#fff 4px, transparent 0),
+            linear-gradient(45deg, transparent 74px, transparent 75px, #a4a4a4 75px, #a4a4a4 76px, transparent 77px, transparent 109px),
+            linear-gradient(-45deg, transparent 75px, transparent 76px, #a4a4a4 76px, #a4a4a4 77px, transparent 78px, transparent 109px),
+            #fff;
+    background-size: 109px 109px, 109px 109px,100% 6px, 109px 109px, 109px 109px;
+    background-position: 54px 55px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+    max-width: 100%;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.icon-bar {
+    width: 100%; /* Full-width */
+    background-color: #000000; /* Dark-grey background */
+    overflow: auto; /* Overflow due to float */
+    padding: 20px;
+    margin-top: 0;
+}
+
+.icon-bar a {
+    /*text-align: center;
+    width: 30%;
+    transition: all 0.3s ease; */
+    color: #ffffff; /* White text color */
+    font-size: 36px; /* Increased font size */
+    transition: all 0.3s ease;
+}
+    .icon-bar a:hover {
+        background-color: #ffffff;
+        color: #000000;
+    }
+.fa-bars {
+    float: left;
+    width: 20%;
+    text-align: center;
+}
+.fa-male {
+    float: right;
+    width: 20%;
+    text-align: center;
+}
+.fa-search {
+    float: right;
+    width: 20%;
+    text-align: center;
+}
+
+    .text {
+        background-color: #000000;
+        border: none;
+        color: #ffffff;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 37px;
+        font-family: "Edwardian Script ITC";
+    }
+    .tagline {
+        font-size: 30px;
+        display: inline-block;
+        font-family: "Edwardian Script ITC";
+    }
+    .tagline :hover{
+        background-color: #000000;
+        color: #ffffff;
+    }
+    div.post {
+        margin: 5px;
+        border: 2px solid #000000;
+        float: right;
+        width: 250px;
+        border-collapse: collapse;
+        border-radius: 8px;
+        flex: 1 0 auto;
+    }
+
+    div.post:hover {
+        border: 2px solid #ffffff;
+    }
+
+    div.gallery img {
+        width: 100%;
+        height: auto;
+        border-radius: 5px;
+    }
+
+    div.desc {
+        margin-top: -5px;
+        padding: 15px;
+        text-align: center;
+        background-color: #ffffff;
+        border-radius: 8px;
+    }
+
+    div .info {
+        text-align: left;
+        float: left;
+        font-size: 15px;
+        color: grey;
+        background-color: #ffffff;
+        border: none;
+    }
+
+    .footer {
+        background:#999;
+        text-align: center;
+        font-family: Copperplate Gothic Light;
+        padding: 10px;
+        flex-shrink: 0;
+    }
+
+    .button {
+        background-color: #ffffff;
+        background: url(dancing_man_icon_70491_4Eg_icon.ico) no-repeat;
+        border: 1px solid black;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        padding: 21px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: -20px;
+        margin-bottom: 5px;
+        margin-right: 10px;
+        cursor: pointer;
+        border-radius: 100%;
+        float:right;
+    }
+    /*.date {
+        background-color: #000000;
+        padding: 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: -20px;
+        margin-bottom: 35px;
+        margin-right: 10px;
+        cursor: pointer;
+        border-radius: 100%;
+        float:left;
+    }*/
+    /*.tooltip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted black;
+    }
+    .button a{
+        text-decoration: none;
+    }
+
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        width: 100px;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -60px;
+        margin-bottom: 20px;
+        position: absolute;
+        z-index: 1;
+        float:right;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }*/
+    /*.button span.icon {
+        background: url(dancing_man_icon_70491_Bua_icon.ico) no-repeat;
+        float: left;
+        width: 20px;
+        height: 40px;
+    }*/
