@@ -119,9 +119,9 @@ body {
     }
 
     .button {
-        background-color: #ffffff;
-        background: url(dancing_man_icon_70491_4Eg_icon.ico) no-repeat;
-        border: 1px solid black;
+        background-color: #000000;
+        background: url(whitesmallman_0C5_icon.ico) no-repeat;
+        border: none;
         box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
         padding: 21px;
         text-align: center;
