@@ -1,8 +1,8 @@
 
-    /*background-color: #fdfcff;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'
-    width='36' height='72' viewBox='0 0 36 72'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23f68610'
-    fill-opacity='0.46'%3E%3Cpath d='M2 6h12L8 18 2 6zm18 36h12l-6 12-6-12z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");*/
+*{
+    padding: 0;
+    margin: 0;
+}
 body {
     background:
             radial-gradient(black 3px, transparent 4px),
@@ -18,42 +18,102 @@ body {
     display: flex;
     flex-direction: column;
 }
-.icon-bar {
-    width: 100%; /* Full-width */
-    background-color: #000000; /* Dark-grey background */
-    overflow: auto; /* Overflow due to float */
-    padding: 20px;
-    margin-top: 0;
+    .container{
+        display: grid;
+        grid-template-areas: "header header header"
+                             "left main right"
+                             "loadMore loadMore loadMore"
+                             "footer footer footer";
+        grid-template-columns: 130px 1fr 130px;
+        min-height: 100vh;
+    }
+    .main {
+        grid-area: main;
+    }
+    .left {
+        grid-area: left;
+    }
+    .right {
+        grid-area: right;
+    }
+    .footer {
+        grid-area: footer;
+        background:#999;
+        text-align: center;
+        font-family: Copperplate Gothic Light;
+        padding: 10px;
+        min-width: 100%;
+    }
+    .header {
+        grid-area: header;
+        background-color: #000000;
+        padding: 20px;
+        min-width: 100%;
 }
-
-.icon-bar a {
-    /*text-align: center;
-    width: 30%;
-    transition: all 0.3s ease; */
-    color: #ffffff; /* White text color */
-    font-size: 36px; /* Increased font size */
-    transition: all 0.3s ease;
+    .gallery {
+        border-radius: 5px;
+        margin-bottom: 5px;
+        margin-top: 5px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 300px));
+        grid-area: gallery;
+        grid-gap: 13px;
+    }
+    .addButt {
+        background-color: red;
+        border: none;
+        color:white;
+        padding: 30px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        border-radius: 100%;
+        float: snap;
+    }
+    .loadMore {
+        padding: 7px;
+        width: 300px;
+        border-radius: 10px;
+        color: black;
+        display: block;
+        margin: 0 auto;
+    }
+    @media screen and (max-width: 1400px){
+    .container {
+        grid-template-areas:    "header header header"
+                                "main main main"
+                                "addButt addButt addButt"
+                                "footer footer footer";
+    }
+        .gallery {
+            grid-template-columns: repeat(auto-fill, 450px);
+        }
+        .info {
+            font-size: 20px;
+        }
+        .logo {
+            font-size: larger;
+        }
+        .username {
+            font-size: 30px;
+        }
+        /*.button {
+            padding: 30px;
+        }*/
 }
-    .icon-bar a:hover {
+    .header a {
+    color: #ffffff;
+    font-size: 36px;
+}
+    .header a:hover {
         background-color: #ffffff;
         color: #000000;
     }
-.fa-bars {
+    .fa-bars {
     float: left;
     width: 20%;
     text-align: center;
 }
-.fa-male {
-    float: right;
-    width: 20%;
-    text-align: center;
-}
-.fa-search {
-    float: right;
-    width: 20%;
-    text-align: center;
-}
-
     .logo {
         background-color: #000000;
         border: none;
@@ -64,6 +124,25 @@ body {
         font-size: 37px;
         font-family: "Edwardian Script ITC";
     }
+
+    .fa-search {
+    float: right;
+    width: 20%;
+    text-align: center;
+}
+    .username {
+        color: white;
+        float:right;
+        text-align: center;
+        margin-right: -80px;
+        margin-left: 10px;
+    }
+
+    .fa-male {
+        float: right;
+        width: 20%;
+        text-align: center;
+    }
     .tagline {
         font-size: 30px;
         display: inline-block;
@@ -73,49 +152,30 @@ body {
         background-color: #000000;
         color: #ffffff;
     }
-    div.post {
-        margin: 5px;
+    .post {
+        padding: 35px 10px;
         border: 2px solid #000000;
-        float: right;
-        width: 250px;
         border-collapse: collapse;
-        border-radius: 8px;
-        flex: 1 0 auto;
+        border-radius: 10px;
+        background-color: white;
     }
 
-    div.post:hover {
+    .post:hover {
         border: 2px solid #ffffff;
     }
-
-    div.gallery img {
-        width: 100%;
-        height: auto;
-        border-radius: 5px;
-    }
-
-    div.desc {
-        margin-top: -5px;
+    .desc {
         padding: 15px;
         text-align: center;
         background-color: #ffffff;
         border-radius: 8px;
     }
 
-    div .info {
+    .info {
         text-align: left;
         float: left;
-        font-size: 15px;
         color: grey;
         background-color: #ffffff;
         border: none;
-    }
-
-    .footer {
-        background:#999;
-        text-align: center;
-        font-family: Copperplate Gothic Light;
-        padding: 10px;
-        flex-shrink: 0;
     }
 
     .button {
@@ -128,19 +188,16 @@ body {
         text-decoration: none;
         display: inline-block;
         font-size: 16px;
-        margin-top: -20px;
-        margin-bottom: 5px;
-        margin-right: 10px;
+        margin-top: -10px;
+        margin-right: 5px;
         cursor: pointer;
         border-radius: 100%;
         float:right;
     }
-    .username {
-        color: white;
-        float:right;
-        text-align: center;
-        margin-right: -80px;
-        margin-left: 10px;
+    .img {
+        border-radius: 10px;
+        border: 2px solid #000000;
+        margin-top: -30px;
     }
     .slidecontainer {
         width: 100%; /* Width of the outside container */
@@ -182,52 +239,56 @@ body {
         background: #4CAF50; /* Green background */
         cursor: pointer; /* Cursor on hover */
     }
-    /*.date {
-        background-color: #000000;
-        padding: 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin-top: -20px;
-        margin-bottom: 35px;
-        margin-right: 10px;
-        cursor: pointer;
-        border-radius: 100%;
-        float:left;
-    }*/
-    /*.tooltip {
-        position: relative;
-        display: inline-block;
-        border-bottom: 1px dotted black;
-    }
-    .button a{
-        text-decoration: none;
-    }
+.fab {
+    position: fixed;
+    width: 56px;
+    bottom: 25px;
+    right: 120px;
+    margin-right: -30px;
+    float:right;
+}
+.fab:hover {
 
-    .tooltip .tooltiptext {
-        visibility: hidden;
-        background-color: black;
-        color: #fff;
-        text-align: center;
-        border-radius: 6px;
-        padding: 5px 0;
-        width: 100px;
-        bottom: 100%;
-        left: 50%;
-        margin-left: -60px;
-        margin-bottom: 20px;
-        position: absolute;
-        z-index: 1;
-        float:right;
-    }
+}
+.fab-action-button {
+    position: absolute;
+    bottom: 0;
+    margin:20px;
+    float: right;
+    display: block;
+    width: 56px;
+    height: 56px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
 
-    .tooltip:hover .tooltiptext {
-        visibility: visible;
-    }*/
-    /*.button span.icon {
-        background: url(dancing_man_icon_70491_Bua_icon.ico) no-repeat;
-        float: left;
-        width: 20px;
-        height: 40px;
-    }*/
+.fab-action-button__icon {
+    display: inline-block;
+    width: 56px;
+    height: 56px;
+    background: url("plus4.png") center no-repeat;
+}
+
+/*
+[data-tooltip]:before {
+    top: 50%;
+    margin-top: -11px;
+    font-weight: 600;
+    border-radius: 2px;
+    background: #585858;
+    color: #fff;
+    content: attr(data-tooltip);
+    font-size: 12px;
+    text-decoration: none;
+    visibility: hidden;
+    opacity: 0;
+    padding: 4px 7px;
+    margin-right: 12px;
+    position: absolute;
+    transform: scale(0);
+    right: 100%;
+    white-space: nowrap;
+    transform-origin: top right;
+    transition: all .3s cubic-bezier(.25, .8, .25, 1);
+}*/
