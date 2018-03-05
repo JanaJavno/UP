@@ -265,5 +265,20 @@ var photoPosts = [
 (function () {
     function getPhotoPosts(skip, top, filterConfig) {
 
+    };
+    function getPhotoPost (id){
+        for (i = 0; i < photoPosts.size; i++) {
+            if (photoPosts[i].id === id)
+                return photoPosts[i];
+        }
+    };
+    function validatePhotoPost(photoPost){
+        if (photoPost instanceof photoPosts){
+            console.log("That is ok");
+            if (isNaN(photoPost.id))
+                return false;
+            if ((typeof photoPost.name !== 'string')||(photoPost.name === null))
+                return false;
+        }
     }
 })();
