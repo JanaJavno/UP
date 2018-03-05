@@ -263,5 +263,7 @@ var photoPosts = [
 ];
 
 (function () {
+    function getPhotoPosts(skip, top, filterConfig) {
 
+    }
 })();

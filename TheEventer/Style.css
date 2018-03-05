@@ -180,7 +180,7 @@ body {
 
     .button {
         background-color: #000000;
-        background: url(whitesmallman_0C5_icon.ico) no-repeat;
+        background: url(assets/whitesmallman_0C5_icon.ico) no-repeat;
         border: none;
         box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
         padding: 21px;
@@ -267,7 +267,7 @@ body {
     display: inline-block;
     width: 56px;
     height: 56px;
-    background: url("plus4.png") center no-repeat;
+    background: url("assets/plus4.png") center no-repeat;
 }
 
 /*
