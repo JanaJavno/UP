@@ -1,19 +1,19 @@
 
 let Module = (function () {
-    let post = function (id0, name0, description0, createdAt0,
-                  author0, photoLink0, scale0, plannedFor0, age0, hashTags0, likes0) {
+    let post = function (id, name, description, createdAt,
+                  author, photoLink, scale, plannedFor, age, hashTags, likes) {
         return {
-            id: id0,
-            name: name0,
-            description: description0,
-            createdAt: new Date(createdAt0),
-            author: author0,
-            photoLink: photoLink0,
-            scale: scale0,
-            plannedFor: new Date (plannedFor0),
-            age: age0,
-            hashTags: hashTags0,
-            likes: likes0
+            id,
+            name,
+            description,
+            createdAt: new Date(createdAt),
+            author,
+            photoLink,
+            scale,
+            plannedFor: new Date (plannedFor),
+            age,
+            hashTags,
+            likes
         }
     };
     let hashTags = ['#музыка', '#классика', '#самооборона', '#женская_самооборона', '#открытый_микрофон', '#стекло', '#выставка',
@@ -104,11 +104,9 @@ let Module = (function () {
     };
 
     let getPhotoPost = function (id) {
-        for (let i = 0; i < photoPosts.length; i++) {
-            if (photoPosts[i].id === id) {
-                return photoPosts[i];
-            }
-        }
+        let respost;
+        respost = photoPosts.filter(photopost => photopost.id === id);
+        return respost;
     };
 
     let validatePhotoPost = function (photoPost) {
@@ -142,6 +140,8 @@ let Module = (function () {
                 if (JSON.stringify(photoPost.plannedFor) === "null") {
                     return false;
                 }
+                if (!photoPost.hashTags)
+                    return false;
                 else return true;
             }
         }
@@ -172,7 +172,7 @@ let Module = (function () {
     };
 
     let editPhotoPost = function (id, object){
-        let temp = cloneWithOutId(photoPosts[parseInt(id) - 1]);
+        let temp = cloneWithOutId(getPhotoPost(id)[0]);
         temp.id = (photoPosts.length + 1).toString();
         if (object.name){
             temp.name = object.name;
@@ -204,7 +204,7 @@ let Module = (function () {
     };
 
     let removePhotoPost = function (id){
-        photoPosts.splice(id - 1, 1);
+        photoPosts.splice(photoPosts.indexOf(getPhotoPost(id)));
     };
     let size = function(){
         return photoPosts.length;
@@ -252,7 +252,9 @@ let obj = {
     author: 'Jana Javno',
     photoLink: 'TestPhoto.png',
     scale: 'local',
-    plannedFor: new Date ('2018-03-13T22:04:00')};
+    plannedFor: new Date ('2018-03-13T22:04:00'),
+    age: '12',
+    hashTags: []};
 if (Module.validatePhotoPost(obj))
     console.log("Object is valid");
 else console.log("Object is not valid");
