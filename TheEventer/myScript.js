@@ -142,6 +142,8 @@ let Module = (function () {
                 }
                 if (!photoPost.hashTags)
                     return false;
+                if (!photoPost.likes)
+                    return false;
                 else return true;
             }
         }
@@ -254,7 +256,8 @@ let obj = {
     scale: 'local',
     plannedFor: new Date ('2018-03-13T22:04:00'),
     age: '12',
-    hashTags: []};
+    hashTags: [],
+    likes: []};
 if (Module.validatePhotoPost(obj))
     console.log("Object is valid");
 else console.log("Object is not valid");
