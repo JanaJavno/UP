@@ -1,7 +1,6 @@
-
 let Module = (function () {
     let post = function (id, name, description, createdAt,
-                  author, photoLink, scale, plannedFor, age, hashTags, likes) {
+                         author, photoLink, scale, plannedFor, age, hashTags, likes) {
         return {
             id,
             name,
@@ -65,36 +64,43 @@ let Module = (function () {
 
     let getPhotoPosts = function (skip, top, filterConfig) {
         let result = photoPosts.slice(0, photoPosts.length);
+        result.sort((a, b) => b.createdAt - a.createdAt);
         if (!filterConfig) {
-            result.sort((a, b) => b.createdAt - a.createdAt);
+            result = result.slice(skip, skip + top);
+            return result;
         }
         else {
-            if (filterConfig.name) {
-                result = result.filter(photopost => photopost.name.includes(filterConfig.name));
-            }
-            if (filterConfig.description) {
-                result = result.filter(photopost => photopost.description.includes(filterConfig.description));
-            }
-            if (filterConfig.author) {
-                result = result.filter(photopost => photopost.author === filterConfig.author);
-            }
-            if (filterConfig.scale) {
-                result = result.filter(photopost => photopost.scale === filterConfig.scale);
-            }
-            if (filterConfig.plannedFor) {//Display till day
-                result = result.filter(photopost => (photopost.plannedFor.getFullYear() === filterConfig.plannedFor.getFullYear())&&
-                    (photopost.plannedFor.getMonth() === filterConfig.plannedFor.getMonth())
-                    &&(photopost.plannedFor.getDay() === filterConfig.plannedFor.getDay()));
-            }
-            if (filterConfig.age) {
-                result = result.filter(photopost => photopost.age === filterConfig.age);
-            }
-            if (filterConfig.hashTags) {//by all hashtags
-                filterConfig.hashTags.sort();
-                for (i = 0; i < result.length; i++) {
-                    if (!filterConfig.hashTags.every(elem => result[i].hashTags.indexOf(elem) > -1)) {//both of arrays are sorted
-                        result.splice(i, 1);
-                        i--;
+            let property;
+            for (property in filterConfig){
+                if (filterConfig.hasOwnProperty(property)){
+                    switch (property){
+                        case "name":
+                        case "description":
+                            result = result.filter(photopost => photopost[property].includes(filterConfig[property]));
+                            break;
+                        case "plannedFor":
+                            if (Array.isArray(filterConfig[property])){
+                                /*result = result.filter(photopost => (( photopost[property].getTime() > filterConfig[property][0].getTime())
+                                    &&(photopost[property].getTime() < filterConfig[property][1].getTime())));*/
+                                for (let i = 0; i < result.length; i++){
+                                    if (!( result[i][property].getTime() > filterConfig[property][0].getTime())
+                                        &&(result[i][property].getTime() < filterConfig[property][1].getTime())){
+                                        result.splice(i, 1);
+                                        i--;
+                                    }
+                                }
+                            }
+                            else {
+                                result = result.filter(photopost => (photopost[property].getFullYear() === filterConfig[property].getFullYear()) &&
+                                    (photopost[property].getMonth() === filterConfig[property].getMonth())
+                                    && (photopost[property].getDay() === filterConfig[property].getDay()));
+                            }
+                            break;
+                        case "hashTags":
+                            result = result.filter(photopost => (filterConfig[property].every(elem => photopost[property].indexOf(elem) > -1)));
+                            break;
+                        default:
+                            result = result.filter(photopost => photopost[property] === filterConfig[property]);
                     }
                 }
             }
@@ -104,9 +110,7 @@ let Module = (function () {
     };
 
     let getPhotoPost = function (id) {
-        let respost;
-        respost = photoPosts.filter(photopost => photopost.id === id);
-        return respost;
+        return photoPosts.filter(photopost => photopost.id === id)[0];
     };
 
     let validatePhotoPost = function (photoPost) {
@@ -174,7 +178,7 @@ let Module = (function () {
     };
 
     let editPhotoPost = function (id, object){
-        let temp = cloneWithOutId(getPhotoPost(id)[0]);
+        let temp = cloneWithOutId(getPhotoPost(id));
         temp.id = (photoPosts.length + 1).toString();
         if (object.name){
             temp.name = object.name;
@@ -199,7 +203,7 @@ let Module = (function () {
         }
         if (validatePhotoPost(temp)){
             temp.id = id;
-            photoPosts[id - 1] = temp;
+            photoPosts[photoPosts.indexOf(getPhotoPost(id))] = temp;
             return true;
         }
         else return false;
@@ -240,6 +244,9 @@ console.log(Module.getPhotoPosts(0, 2, {description: 'электро'}));
 
 console.log("Get post array (5 posts, 0 skipped) sorted by local scale: ");
 console.log(Module.getPhotoPosts(0, 5, {scale: 'local'}));
+
+console.log("Get post array (5 posts, 0 skipped) sorted by 2 dates: ");
+console.log(Module.getPhotoPosts(0, 5, {plannedFor: [new Date ('2018-01-05T10:00:00'), new Date ('2018-04-25T20:00:00')]}));
 
 
 console.log("Get post array (all posts) sorted by global scale, hashTags 0 and 10 and planning date 2018-03-10: ");
@@ -290,3 +297,4 @@ console.log("Remove test photoPost:");
 Module.removePhotoPost(Module.size());
 console.log("The post was successfully removed, the last array element: ");
 console.log(Module.getPhotoPost(Module.size().toString()));
+
