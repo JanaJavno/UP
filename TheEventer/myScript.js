@@ -64,48 +64,55 @@ let Module = (function () {
 
     let getPhotoPosts = function (skip, top, filterConfig) {
         let result = photoPosts.slice(0, photoPosts.length);
-        result.sort((a, b) => b.createdAt - a.createdAt);
         if (!filterConfig) {
             result = result.slice(skip, skip + top);
             return result;
         }
         else {
             let property;
+            let properties = new Map();
             for (property in filterConfig){
-                if (filterConfig.hasOwnProperty(property)){
+                if (filterConfig[property]){
                     switch (property){
                         case "name":
                         case "description":
-                            result = result.filter(photopost => photopost[property].includes(filterConfig[property]));
+                            properties.set(property, function  filterIncluding(photopost, property){
+                                return photopost[property].includes(filterConfig[property]);
+                            });
                             break;
                         case "plannedFor":
                             if (Array.isArray(filterConfig[property])){
-                                /*result = result.filter(photopost => (( photopost[property].getTime() > filterConfig[property][0].getTime())
-                                    &&(photopost[property].getTime() < filterConfig[property][1].getTime())));*/
-                                for (let i = 0; i < result.length; i++){
-                                    if (!( result[i][property].getTime() > filterConfig[property][0].getTime())
-                                        &&(result[i][property].getTime() < filterConfig[property][1].getTime())){
-                                        result.splice(i, 1);
-                                        i--;
-                                    }
-                                }
+                                properties.set(property, function filterForPeriod(photopost, property){
+                                    return (( photopost[property].getTime() > filterConfig[property][0].getTime())
+                                        &&(photopost[property].getTime() < filterConfig[property][1].getTime()));
+                                });
                             }
                             else {
-                                result = result.filter(photopost => (photopost[property].getFullYear() === filterConfig[property].getFullYear()) &&
-                                    (photopost[property].getMonth() === filterConfig[property].getMonth())
-                                    && (photopost[property].getDay() === filterConfig[property].getDay()));
+                                properties.set(property, function filterDate(photopost, property) {
+                                    return (photopost[property].getFullYear() === filterConfig[property].getFullYear()) &&
+                                        (photopost[property].getMonth() === filterConfig[property].getMonth())
+                                        && (photopost[property].getDay() === filterConfig[property].getDay());
+                                });
                             }
                             break;
                         case "hashTags":
-                            result = result.filter(photopost => (filterConfig[property].every(elem => photopost[property].indexOf(elem) > -1)));
+                            properties.set(property, function filterHTags(photopost, property) {
+                                return (filterConfig[property].every(elem => photopost[property].indexOf(elem) > -1));
+                            });
                             break;
                         default:
-                            result = result.filter(photopost => photopost[property] === filterConfig[property]);
+                            properties.set(property, function filterDefault(photopost, property){
+                                return photopost[property] === filterConfig[property];
+                            });
                     }
                 }
             }
+            for (let [key, value] of properties) {
+                result = result.filter(photopost => value(photopost, key));
+            }
         }
         result = result.slice(skip, skip + top);
+        result.sort((a, b) => b.createdAt - a.createdAt);
         return result;
     };
 
@@ -114,44 +121,65 @@ let Module = (function () {
     };
 
     let validatePhotoPost = function (photoPost) {
-        if (photoPost) {
-            if ((typeof photoPost.id === 'string') && (typeof photoPost.name === 'string') && (typeof photoPost.description === 'string') &&
-                (photoPost.createdAt instanceof Date) && (typeof photoPost.author === 'string') && (typeof photoPost.photoLink === 'string')
-                && (typeof photoPost.scale === 'string') && (photoPost.plannedFor instanceof Date)) {
-                for (let i = 0; i < photoPosts.length; i++) {
-                    if (photoPost.id === photoPosts[i].id) {
-                        return false;
-                    }
+        let property;
+        let properties = new Map();
+        for (property in photoPost){
+            if (photoPost[property]){
+                switch (property){
+                    case "id":
+                        properties.set(property, function  checkId(photoPost, property){
+                            if (typeof photoPost[property] !== 'string'){
+                                return false;
+                            }
+                            for (let i = 0; i < photoPosts.length; i++) {
+                                if (photoPost[property] === photoPosts[i][property]) {
+                                    return false;
+                                }
+                            }
+                            return true;
+                        });
+                        break;
+                    case "name":
+                    case "author":
+                    case "photoLink":
+                        properties.set(property, function  checkStr(photoPost, property){
+                            return (typeof photoPost[property] === 'string')&&(photoPost[property].length !== 0);
+                        });
+                        break;
+                    case "description":
+                        properties.set(property, function  checkDescr(photoPost, property){
+                            return (typeof photoPost[property] === 'string')&&(photoPost[property].length !== 0)&&(photoPost[property].length < 199);
+                        });
+                        break;
+                    case "createdAt":
+                    case "plannedFor":
+                        properties.set(property, function  checkDate(photoPost, property){
+                            return (photoPost[property] instanceof Date)&&(JSON.stringify(photoPost[property]) !== "null");
+                        });
+                        break;
+                    case "scale":
+                        properties.set(property, function  checkScale(photoPost, property){
+                            return (typeof photoPost[property] === 'string')&&((photoPost[property] === 'local') || (photoPost[property] === 'global'));
+                        });
+                        break;
+                    case "hashTags":
+                    case "likes":
+                        properties.set(property, function  checkIsExists(photoPost, property){
+                            return !(!photoPost[property]);
+                        });
+                        break;
                 }
-                if (photoPost.name.length === 0) {
-                    return false;
-                }
-                if ((photoPost.description.length === 0) || (photoPost.description.length > 199)) {
-                    return false;
-                }
-                if (JSON.stringify(photoPost.createdAt) === "null") {
-                    return false;
-                }
-                if (photoPost.author.length === 0) {
-                    return false;
-                }
-                if (photoPost.photoLink.length === 0) {
-                    return false;
-                }
-                if (!((photoPost.scale === 'local') || (photoPost.scale === 'global'))) {
-                    return false;
-                }
-                if (JSON.stringify(photoPost.plannedFor) === "null") {
-                    return false;
-                }
-                if (!photoPost.hashTags)
-                    return false;
-                if (!photoPost.likes)
-                    return false;
-                else return true;
             }
         }
-        else return false;
+        if (properties.size !== 10){
+            return false;
+        }
+        for (let [key, value] of properties) {
+            if (!value(photoPost, key)) {
+                return false;
+            }
+        }
+        return true;
     };
 
     let addPhotoPost = function (object){
@@ -271,10 +299,10 @@ else console.log("Object is not valid");
 
 console.log("Check validity for non-valid object:");
 let obj0 = {
-    id: '21',
+    id: '22',
     name: 'TestPost',
     description: 'TestDescription',
-    createdAt: new Date(''),
+    createdAt: new Date('2018-03-13T22:04:00'),
     author: 'Jana Javno',
     photoLink: 'TestPhoto.png',
     scale: 'local',
