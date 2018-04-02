@@ -55,7 +55,7 @@ body {
     grid-area: header;
     background-color: #000000;
     padding: 20px;
-    min-width: 100%;
+    min-width: 110%;
 }
 
 .gallery {
@@ -145,8 +145,13 @@ body {
 
 .fa-male {
     float: right;
-    width: 20%;
+    width: 30%;
     text-align: center;
+}
+
+.fa-key {
+    float: right;
+    margin-right: -400px;
 }
 
 .post {
@@ -222,6 +227,14 @@ body {
     cursor: pointer;
 }
 
+.closeButt {
+    background: url(assets/close.png) center no-repeat;
+    float: left;
+    padding: 10px;
+    border:none;
+    cursor: pointer;
+}
+
 .fab {
     position: fixed;
     width: 64px;
@@ -252,10 +265,9 @@ body {
     background: url("assets/plusbl.png") center no-repeat;
 }
 
-
 .search {
     width: 100%;
-    position: relative
+    position: relative;
 }
 
 .searchTerm {

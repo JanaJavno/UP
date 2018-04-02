@@ -119,12 +119,7 @@ const postManager = (function () {
     };
     let getPhotoPosts = function (skip, top, filterConfig) {
         let result = photoPosts.slice(0, photoPosts.length);
-        if (!filterConfig) {
-            result = result.sort((a, b) => b.createdAt - a.createdAt);
-            result = result.slice(skip, skip + top);
-            return result;
-        }
-        else {
+        if (filterConfig) {
             let property;
             for (property in filterConfig) {
                 if (filters[property]) {
@@ -134,8 +129,8 @@ const postManager = (function () {
                 }
             }
         }
-        result = result.slice(skip, skip + top);
         result.sort((a, b) => b.createdAt - a.createdAt);
+        result = result.slice(skip, skip + top);
         return result;
     };
 
@@ -187,26 +182,9 @@ const postManager = (function () {
     let editPhotoPost = function (id, object){
         let temp = cloneWithOutId(getPhotoPost(id));
         temp.id = (photoPosts.length + 1).toString();
-        if (object.name){
-            temp.name = object.name;
-        }
-        if (object.description){
-            temp.description = object.description;
-        }
-        if (object.photoLink){
-            temp.photoLink = object.photoLink;
-        }
-        if (object.scale){
-            temp.scale = object.scale;
-        }
-        if (object.plannedFor){
-            temp.plannedFor = object.plannedFor;
-        }
-        if (object.age){
-            temp.age = object.age;
-        }
-        if (object.hashTags){
-            temp.hashTags = object.hashTags;
+        let property;
+        for (property in object){
+            temp[property] = object[property];
         }
         if (validatePhotoPost(temp)){
             temp.id = id;
@@ -233,55 +211,3 @@ const postManager = (function () {
         hashTags
     };
 })();
-
-
-console.log("Get post array (5 posts, 2 skipped) sorted by creating date(default): ");
-console.log(postManager.getPhotoPosts(2, 5));
-
-
-console.log("Get post array (3 posts, 1 skipped) sorted by author Иванов Евгений: ");
-console.log(postManager.getPhotoPosts(1, 3, {author: 'Иванов Евгений'}));
-
-console.log("Get post array (2 posts, 0 skipped) sorted by description 'электро': ");
-console.log(postManager.getPhotoPosts(0, 2, {description: 'электро'}));
-
-console.log("Get post array (5 posts, 0 skipped) sorted by local scale: ");
-console.log(postManager.getPhotoPosts(0, 5, {scale: 'local'}));
-
-console.log("Get post array (5 posts, 0 skipped) sorted by 2 dates: ");
-console.log(postManager.getPhotoPosts(0, 5, {plannedFor: [new Date ('2018-01-05T10:00:00'), new Date ('2018-04-25T20:00:00')]}));
-
-
-console.log("Get post array (all posts) sorted by global scale, hashTags #музыка and #электроника and planning date 2018-03-10: ");
-console.log(postManager.getPhotoPosts(0, 20, {scale: 'global', hashTags: ['#музыка', '#электроника'], plannedFor: new Date('2018-03-10T20:00:00')}));
-
-console.log("Check validity for valid object:");
-let obj = {
-    id: '21',
-    name: 'TestPost',
-    description: 'TestDescription',
-    createdAt: new Date('2018-03-13T22:04:00'),
-    author: 'Jana Javno',
-    photoLink: 'TestPhoto.png',
-    scale: 'local',
-    plannedFor: new Date ('2018-03-13T22:04:00'),
-    age: '12',
-    hashTags: [],
-    likes: []};
-if (postManager.validatePhotoPost(obj))
-    console.log("Object is valid");
-else console.log("Object is not valid");
-
-console.log("Check validity for non-valid object:");
-let obj0 = {
-    id: '22',
-    name: 'TestPost',
-    description: 'TestDescription',
-    createdAt: new Date('2018-03-13T22:04:00'),
-    author: 'Jana Javno',
-    photoLink: 'TestPhoto.png',
-    scale: 'local',
-    plannedFor: new Date ('2018-03-13T22:04:00')};
-if (postManager.validatePhotoPost(obj0))
-    console.log("Object is valid");
-else console.log("Object is not valid");
