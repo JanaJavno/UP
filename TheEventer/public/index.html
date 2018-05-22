@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TheEventer</title>
+    <link rel="shortcut icon" type="image/ico" href="../assets/favicon.ico">
+    <link href="Style.css" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="jsCalendar.css">
+</head>
+<body>
+<div class="container">
+    <header class="header" id="header">
+        <div class="barWrap">
+            <a href="#"><i class="fa fa-bars"></i></a>
+        </div>
+        <a href="#"><i class="logo">TheEventer</i></a>
+        <!--<div class="calendar" id="calendarBtn"><div class="calendarDay" id="calendarDay">7</div>
+            <div class="calendarMonth" id="calendarMonth">February</div> </div>-->
+        <input type="date" id='newCalendar'>
+        <!--<div id="calendarModal" class="modal">
+            <div class="modal-content">
+                &lt;!&ndash;<span class="closeBtn">&times;</span>&ndash;&gt;
+                &lt;!&ndash;<div id="my-calendar"></div>&ndash;&gt;
+            </div>
+        </div>-->
+        <div class="wrap">
+            <form name="search">
+                <input type="text" class="searchTerm" id="search" placeholder="srch:byNamebyDescr@byAuthor#byHashTags">
+            </form>
+        </div>
+        <div class="iwrap">
+            <a href="#"><i class="fa fa-male" id="imale"></i></a>
+            <a href="#"><i class="fa fa-key" id="ikey"></i></a>
+        </div>
+        <div id="registrModal" class="modal">
+            <div class="modal-content">
+                <form id="registration">
+                    <p align="right">Имя   <input type="text" name="username" required></p>
+                    <p align="right">Пароль <input type="password" name="password" required></p>
+                    <input type="submit">
+                </form>
+                <button id="registrationBtn" class="registrationBtn">Зарегистрироваться</button>
+            </div>
+        </div>
+    </header>
+    <main class="main">
+        <!--<form class="registrForm">
+            <ul>
+                <li><label for="loginR">Логин</label></li>
+                <li><input type="text" class="loginR" id="loginR" required></li>
+                <li><label for="birthCalendarR">Ваш день рождения</label></li>
+                <li><input type="date" class="birthCalendarR" id="birthCalendarR"></li>
+                <li><p>Ваш пол</p>
+                <input type="radio" id="manR"
+                       name="gender" value="man" class="sexR">
+                <label for="manR">Мужчина</label>
+
+                <input type="radio" id="womanR"
+                       name="gender" value="woman" class="sexR">
+                <label for="womanR">Женщина</label></li>
+
+                <li><p>Ваш город</p></li>
+                <li><input type="text" class="cityR" id="cityR"></li>
+                <li><label for="passwordR">Введите пороль</label></li>
+                <li><input type="password" class="passwordR" id="passwordR"></li>
+            </ul>
+        </form>-->
+        <div class="gallery" id="#gallery"></div>
+        <button class="loadMore" id="paginationButt">Загрузить еще</button>
+    </main>
+    <aside class="left">
+    </aside>
+    <aside class="right">
+    </aside>
+    <footer class="footer">TheEventer Perednia Jana 2c 8g perednia.jana@gmail.com 26.02.2018</footer>
+</div>
+<div class="fab">
+  <span class="fab-action-button" id="fab"> <i class="fab-action-button__icon"></i>
+    </span>
+</div>
+</body>
+<template>
+    <div class="post">
+        <a target="_self">
+            <img width=100% class="img">
+        </a>
+        <div class="desc"></div>
+        <div class="hashT"></div>
+        <div class="info"></div>
+        <div class="button" title="хочу пойти"></div>
+        <button class="editButt"><span class="icon"></span><a href="#"></a></button>
+        <button class="closeButt"><span class="icon"></span><a href="#"></a></button>
+    </div>
+</template>
+<script src="jsCalendar.js"></script>
+<script src="postManager.js"></script>
+<script src="postRenderer.js"></script>
+<script src="userRenderer.js"></script>
+<script src="pageEvents.js"></script>
+<script src="Tests.js"></script>
+</html>
