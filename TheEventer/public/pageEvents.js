@@ -52,19 +52,31 @@ dateInput.addEventListener('change', function(){
     }
 });
 
-let modal = document.getElementById('registrModal');//form display
-let modalBtn = document.getElementById('ikey');
-modalBtn.addEventListener('click', function(){
-    modal.style.display = 'block';
+document.getElementById("fab").addEventListener('click', function(e){
+    document.getElementById("addModal").style.display = 'block';
 });
 window.addEventListener('click', function(e){
-    if (e.target === modal){
-        modal.style.display = 'none';
+    if (e.target === document.getElementById("addModal")) {
+        document.getElementById("addModal").style.display = 'none';
     }
 });
 
-let registrBtn = document.getElementById('registrationBtn');
-registrBtn.addEventListener("click", function(){
-    postRenderer.clear();
-    alert("hi");
+document.getElementById("submitAdding").addEventListener('click', function(e){
+    if (postRenderer.displayNewPost({
+            id: postAmount.toString(),
+            name: document.getElementById("nameA").value,
+            description: document.getElementById("descripA").value,
+            createdAt: new Date(),
+            author: userName,
+            photoLink: document.getElementById("photoA").value,
+            scale: document.getElementById("scaleA").value,
+            plannedFor: new Date (document.getElementById("dateA").value),
+            age: document.getElementById("ageA").value.toString(),
+            hashTags: document.getElementById("hashTagsA").value.split(" "),
+            likes:[],
+        })) {
+        document.getElementById("addModal").style.display = 'none';
+        alert("Пост успешно добавлен!");
+    }
+    else alert("Некорректная информация!");
 });

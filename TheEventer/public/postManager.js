@@ -19,7 +19,7 @@ const postManager = (function () {
         '#любовь', '#квест', '#фестиваль', '#электроника', '#пилатес', '#набор_в_группу', '#арт', '#для_пожилых', '#регби',
         '#снега_слишком_много', '#помощь_другу', '#ищу_компанию', '#дегустация', '#благотворительность', '#волонтер', '#общение',
         '#спорт', '#сноуборд', '#кино', '#бар', '#деньбезмяса', '#искусство'];
-    let photoPosts = [
+    let localPhotoPosts = [
         post('1', 'Lords of the Sound', 'Музыка известных кинокомпозиторов: Эннио Морриконе, Джон Уильямс.',
             '2018-02-23T23:00:00', 'Петров Иван',  'assets/classicmusic.jpg', 'global', '2018-04-27T19:00:00', '6', ['#музыка', '#классика'], []),
         post('2', 'Дерись как девчонка', 'Семинар по женской самообороне от Krav Maga Belarus.',
@@ -61,6 +61,22 @@ const postManager = (function () {
         post('20','Луна','Молодая представительница электронной музыки',
             '2018-02-10T19:00:00', 'Иванов Евгений','assets/moon.jpg','global','2018-03-10T20:00:00', '16', ['#музыка','#электроника'], [])
     ];
+    let photoPosts = JSON.parse(localStorage.getItem('data'));
+    if (!photoPosts) {
+        photoPosts = localPhotoPosts;
+    } else {
+        photoPosts.forEach(function (item) {
+            item.createdAt = new Date(item.createdAt);
+            item.plannedFor = new Date(item.plannedFor);
+        });
+    }
+    window.addEventListener("beforeunload", function () {
+        if (!photoPosts) {
+            localStorage.setItem('data', JSON.stringify(localPhotoPosts));
+        } else {
+            localStorage.setItem('data', JSON.stringify(photoPosts));
+        }
+    });
     const filters = {
         description: (postDescription, filterDescription) => {
             return postDescription.includes(filterDescription);

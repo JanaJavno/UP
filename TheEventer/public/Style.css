@@ -360,7 +360,7 @@ input[type=submit]{
 
 .button {
     background-color: #000000;
-    background: url(../assets/whitesmallman_0C5_icon.ico) no-repeat;
+    background: url(../public/assets/whitesmallman_0C5_icon.ico) no-repeat;
     border: none;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     padding: 21px;
@@ -383,7 +383,7 @@ input[type=submit]{
 }
 
 .editButt {
-    background: url(../assets/pencil-edit-button16.png) center no-repeat;
+    background: url(../public/assets/pencil-edit-button16.png) center no-repeat;
     margin-left: 10px;
     padding: 10px;
     border:none;
@@ -392,7 +392,7 @@ input[type=submit]{
 }
 
 .closeButt {
-    background: url(../assets/close.png) center no-repeat;
+    background: url(../public/assets/close.png) center no-repeat;
     float: left;
     padding: 10px;
     border:none;
@@ -426,7 +426,7 @@ input[type=submit]{
     display: inline-block;
     width: 64px;
     height: 64px;
-    background: url("../assets/plusbl.png") center no-repeat;
+    background: url("../public/assets/plusbl.png") center no-repeat;
 }
 
 .yui3-button {
@@ -447,12 +447,16 @@ input[type="date"]{
 }
 
 .registrForm{
-    margin-top: 50px;
+    margin-top: 80px;
+    width: 100%;
     background-color: #f1f1f1;
 }
-
-.passwordR , .loginR, .cityR, .birthCalendarR{
-    width: 120px;
+.submitFullRegistr{
+    margin-right: 500px;
+}
+.passwordR , .loginR,.mailR,  .submitFullRegistr{
+    text-align: center;
+    width: 30%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -460,7 +464,28 @@ input[type="date"]{
     margin-top: 6px;
     margin-bottom: 16px;
 }
-
-.sexR {
-    margin: 10px;
+.fullRegistrModal{
+    display: none;
+    padding: 70px;
+}
+.addModal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top:0;
+    height: 100%;
+    width:100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.addModalContent{
+    margin: 100px 100px;
+    padding: 100px;
+    background-color: white;
+    width: 30%;
+    float: right;
+    box-shadow:0 2px 2px #888;
+    border-radius: 3px;
+    opacity: 1;
 }

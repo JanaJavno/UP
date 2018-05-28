@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>TheEventer</title>
-    <link rel="shortcut icon" type="image/ico" href="../assets/favicon.ico">
+    <link rel="shortcut icon" type="image/ico" href="../public/assets/favicon.ico">
     <link href="Style.css" rel="stylesheet">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -16,15 +16,7 @@
             <a href="#"><i class="fa fa-bars"></i></a>
         </div>
         <a href="#"><i class="logo">TheEventer</i></a>
-        <!--<div class="calendar" id="calendarBtn"><div class="calendarDay" id="calendarDay">7</div>
-            <div class="calendarMonth" id="calendarMonth">February</div> </div>-->
         <input type="date" id='newCalendar'>
-        <!--<div id="calendarModal" class="modal">
-            <div class="modal-content">
-                &lt;!&ndash;<span class="closeBtn">&times;</span>&ndash;&gt;
-                &lt;!&ndash;<div id="my-calendar"></div>&ndash;&gt;
-            </div>
-        </div>-->
         <div class="wrap">
             <form name="search">
                 <input type="text" class="searchTerm" id="search" placeholder="srch:byNamebyDescr@byAuthor#byHashTags">
@@ -36,38 +28,53 @@
         </div>
         <div id="registrModal" class="modal">
             <div class="modal-content">
-                <form id="registration">
-                    <p align="right">Имя   <input type="text" name="username" required></p>
-                    <p align="right">Пароль <input type="password" name="password" required></p>
-                    <input type="submit">
+                <form id="access">
+                    <p align="right">Имя   <input type="text" id="username" required></p>
+                    <p align="right">Пароль <input type="password" id="password" required></p>
+                    <input type="submit" >
                 </form>
                 <button id="registrationBtn" class="registrationBtn">Зарегистрироваться</button>
             </div>
         </div>
     </header>
     <main class="main">
-        <!--<form class="registrForm">
+        <div id = "fullRegistrModal" class = "fullRegistrModal">
+            <form class="registrForm">
             <ul>
                 <li><label for="loginR">Логин</label></li>
                 <li><input type="text" class="loginR" id="loginR" required></li>
-                <li><label for="birthCalendarR">Ваш день рождения</label></li>
-                <li><input type="date" class="birthCalendarR" id="birthCalendarR"></li>
-                <li><p>Ваш пол</p>
-                <input type="radio" id="manR"
-                       name="gender" value="man" class="sexR">
-                <label for="manR">Мужчина</label>
-
-                <input type="radio" id="womanR"
-                       name="gender" value="woman" class="sexR">
-                <label for="womanR">Женщина</label></li>
-
-                <li><p>Ваш город</p></li>
-                <li><input type="text" class="cityR" id="cityR"></li>
+                <li><label for="mailR">Почта</label></li>
+                <li><input type="text" class="mailR" id="mailR" required></li>
                 <li><label for="passwordR">Введите пороль</label></li>
-                <li><input type="password" class="passwordR" id="passwordR"></li>
+                <li><input type="password" class="passwordR" id="passwordR" required></li>
             </ul>
-        </form>-->
+                <input type="submit" class="submitFullRegistr">
+        </form>
+        </div>
         <div class="gallery" id="#gallery"></div>
+        <div class="addModal" id="addModal">
+            <div class="addModalContent">
+                <form >
+                    <li><label for="nameA">Название</label></li>
+                    <li><input type="text" class="nameA" id="nameA" required></li>
+                    <li><label for="dateA">Дата</label></li>
+                    <li><input type="date" class="dateA" id="dateA" required></li>
+                    <li><label for="descripA">Описание</label></li>
+                    <li><input type="text" class="descripA" id="descripA" required></li>
+                    <li><label for="ageA">Возрастная категория</label></li>
+                    <li><input type="text" class="ageA" id="ageA" required></li>
+                    <li><label for="hashTagsA">     Хэштеги</label></li>
+                    <li><input type="text" class="hashTagsA" id="hashTagsA"></li>
+                    <li><label for="photoA">Фото</label></li>
+                    <li><input type="text" class="photoA" id="photoA"></li>
+                    <li><label for="scaleA">Локация(local/global)</label></li>
+                    <li><input type="text" class=scaleA" id="scaleA"></li>
+                    <input type="submit" id="submitAdding">
+                </form>
+            </div>
+        </div>
+        <div class="addModal" id="editModal">
+        </div>
         <button class="loadMore" id="paginationButt">Загрузить еще</button>
     </main>
     <aside class="left">
@@ -77,7 +84,8 @@
     <footer class="footer">TheEventer Perednia Jana 2c 8g perednia.jana@gmail.com 26.02.2018</footer>
 </div>
 <div class="fab">
-  <span class="fab-action-button" id="fab"> <i class="fab-action-button__icon"></i>
+  <span class="fab-action-button" id="fab">
+      <i class="fab-action-button__icon"></i>
     </span>
 </div>
 </body>
